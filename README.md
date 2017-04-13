@@ -1,2 +1,2 @@
 # MathMidle
-Math midle algebraic or geometric progression
+Math midle algebraic or geometric
