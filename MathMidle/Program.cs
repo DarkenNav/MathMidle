@@ -1,4 +1,5 @@
 ﻿using MathMidle.Enums;
+using MathMidle.Implementation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,17 +12,30 @@ namespace MathMidle
     class Program
     {
         static Commands command = Commands.None;
-        static List<int> numbers = new List<int>();
+        static NumberList numbers = new NumberList();
 
         static void Main(string[] args)
         {
+            //args = new []{ "-am", "1", "2", "3", "4", "5" };
+            //args = new[] { "-gm", "1", "2", "3", "3", "3" };
+
             if (args.Length == 0)
             {
                 Console.Write(ErrorInputMessage());
             }
             else
             {
-                ArgumentsParse(args, numbers);
+                ArgumentsParse(args);
+                
+                switch (command)
+                {
+                    case Commands.Algebraic:
+                        Console.WriteLine($"Результат: {numbers.MidleAlgebraic.ToString("N2")}");
+                        break;
+                    case Commands.Geometric:
+                        Console.WriteLine($"Результат: {numbers.MidleGeometric.ToString("N2")}");
+                        break;
+                }
             }
 
             Console.Write("\r\nДля завершения работы нажмите любую клавишу...");
@@ -42,21 +56,26 @@ namespace MathMidle
                 );
         }
 
-        private static void ArgumentsParse(string[] args, List<int> numbers)
+        private static void ArgumentsParse(string[] args)
         {
-            if (!(args.Length > 2 && CheckCommand(args[0]) && CheckValues(args, numbers)))
+            if (!(args.Length > 2 && CheckCommand(args[0]) && CheckValues(args)))
             {
                 Console.Write($"Вы ввели не правильные аргументы\r\n{ErrorInputMessage()}");
-                ArgumentsParse(Console.ReadLine().Split(' '), numbers);
+                ArgumentsParse(Console.ReadLine().Split(' '));
             }
         }
 
-        private static bool CheckValues(string[] args, List<int> numbers)
+        private static bool CheckValues(string[] args)
         {
+            numbers = new NumberList();
             for (var i = 1; i < args.Length; i++)
             {
                 var number = 0;
                 if (!int.TryParse(args[i], out number))
+                {
+                    return false;
+                }
+                if (number < 1)
                 {
                     return false;
                 }
