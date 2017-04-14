@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathMidle.Implementation
 {
@@ -26,6 +24,27 @@ namespace MathMidle.Implementation
 
                 return Math.Pow(mult, 1f / Count);
             }
+        }
+
+        public bool AddWithCheck(string value)
+        {
+            var number = 0;
+            if (!int.TryParse(value, out number))
+            {
+                return false;
+            }
+
+            return AddWithCheck(number);
+        }
+
+        public bool AddWithCheck(int value)
+        {
+            if (value > 0)
+            {
+                Add(value);
+                return true;
+            }
+            return false;
         }
     }
 }
