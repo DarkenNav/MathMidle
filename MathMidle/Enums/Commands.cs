@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace MathMidle.Enums
 {
@@ -13,6 +8,8 @@ namespace MathMidle.Enums
         [Description("-am")]
         Algebraic,
         [Description("-gm")]
-        Geometric
+        Geometric,
+        [Description("-q")]
+        Exit
     }
 }
